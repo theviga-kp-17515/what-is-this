@@ -120,9 +120,9 @@ body.city .palm svg { animation: sway 5s ease-in-out infinite alternate; transfo
 .beam { position: absolute; bottom: -10%; width: 22vmax; height: 140vh; background: linear-gradient(0deg, rgba(255, 230, 180, 0.35), transparent 75%); clip-path: polygon(45% 100%, 55% 100%, 100% 0, 0 0);
   transform-origin: 50% 100%; opacity: 0; mix-blend-mode: screen; }
 .beam.l { left: 8%; } .beam.r { right: 8%; }
-body.title .beam { opacity: 1; transition: opacity 1s; }
-body.title .beam.l { animation: beamL 4s ease-in-out infinite alternate; }
-body.title .beam.r { animation: beamR 4.6s ease-in-out infinite alternate; }
+body.titled .beam { opacity: 1; transition: opacity 1s; }
+body.titled .beam.l { animation: beamL 4s ease-in-out infinite alternate; }
+body.titled .beam.r { animation: beamR 4.6s ease-in-out infinite alternate; }
 @keyframes beamL { from { rotate: -28deg; } to { rotate: 18deg; } }
 @keyframes beamR { from { rotate: 26deg; } to { rotate: -16deg; } }
 
@@ -135,7 +135,7 @@ body.title .beam.r { animation: beamR 4.6s ease-in-out infinite alternate; }
 @keyframes kb { from { scale: 1.16; translate: var(--kx, 0) var(--ky, 0); } to { scale: 1; translate: 0 0; } }
 .shade { position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(5, 0, 10, 0.65) 100%), linear-gradient(180deg, rgba(10, 2, 18, 0.55), transparent 30%, transparent 55%, rgba(10, 2, 18, 0.85)); }
-body.title .shade { background: radial-gradient(ellipse at 50% 42%, rgba(5, 0, 10, 0.35) 20%, rgba(5, 0, 10, 0.75) 100%), linear-gradient(180deg, rgba(10, 2, 18, 0.5), transparent 30%, transparent 50%, rgba(10, 2, 18, 0.9)); transition: background 1s; }
+body.titled .shade { background: radial-gradient(ellipse at 50% 42%, rgba(5, 0, 10, 0.35) 20%, rgba(5, 0, 10, 0.75) 100%), linear-gradient(180deg, rgba(10, 2, 18, 0.5), transparent 30%, transparent 50%, rgba(10, 2, 18, 0.9)); transition: background 1s; }
 .bar { position: absolute; left: 0; right: 0; height: 8vh; background: #000; z-index: 15; pointer-events: none; transition: translate 1s cubic-bezier(0.6, 0, 0.2, 1); }
 .bar.t { top: 0; translate: 0 -100%; } .bar.b { bottom: 0; translate: 0 100%; }
 body.city .bar { translate: 0 0; }
@@ -188,6 +188,15 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
 .btn.gold { color: #3a0c22; background: linear-gradient(180deg, #ffe3a3, var(--gold) 45%, var(--gold-deep)); }
 .btn.ghost { color: var(--cream); background: transparent; border: 1px solid rgba(255, 244, 230, 0.5); }
 
+/* Proof of the gift: the pre-order page, opened from the ending card */
+.proof { position: absolute; inset: 0; z-index: 40; display: grid; place-items: center; padding: 1rem; background: rgba(8, 2, 14, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.4s; }
+.proof[hidden] { display: none; }
+.proof.on { opacity: 1; }
+.proof-in { display: grid; gap: 0.9rem; justify-items: center; width: min(60rem, 100%); max-height: 100%; overflow: auto; text-align: center; }
+.proof-in p { margin: 0; font: 600 clamp(1.6rem, 6vw, 2.2rem)/1.15 var(--hand); color: #ffd9e7; }
+.proof-in small { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.proof-in img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid rgba(246, 207, 122, 0.45); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); scale: 0.96; transition: scale 0.5s cubic-bezier(0.2, 0.9, 0.2, 1); }
+.proof.on .proof-in img { scale: 1; }
 #fx { position: absolute; inset: 0; z-index: 13; width: 100%; height: 100%; pointer-events: none; }
 .mute { position: absolute; top: max(0.8rem, env(safe-area-inset-top)); right: 0.8rem; z-index: 25; width: 2.6rem; height: 2.6rem; border-radius: 50%; padding: 0; display: grid; place-items: center;
   color: var(--cream); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25); font-size: 1rem; letter-spacing: 0; }
@@ -253,9 +262,17 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
   <div class="ending">
     <small>Unlocked · Just for you</small>
     <p>It's officially yours, Dhinakar. Happy Men's Day ♥</p>
-    <div class="row"><button type="button" class="btn gold" id="again">Watch again</button><a class="btn ghost" id="back" href="./">Back to your page</a></div>
+    <div class="row"><button type="button" class="btn gold" id="see">Check this</button><button type="button" class="btn ghost" id="again">Watch again</button><a class="btn ghost" id="back" href="./">Back to your page</a></div>
   </div>
 
+  <div class="proof" id="proof" role="dialog" aria-modal="true" aria-label="Your pre-order" hidden>
+    <div class="proof-in">
+      <small>Pre-ordered · Just for you</small>
+      <p>It's real, and it's yours ♥</p>
+      <img src="gta/proof-store.jpg" alt="PlayStation Store page showing Grand Theft Auto VI Ultimate Edition, pre-ordered">
+      <button type="button" class="btn ghost" id="proof-close">Close</button>
+    </div>
+  </div>
   <div class="flash" id="flash"></div>
   <button type="button" class="mute" id="mute" aria-label="Mute sound" hidden>🔊</button>
   <button type="button" class="skip" id="skip" hidden>Skip ▶▶</button>
@@ -375,7 +392,7 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
     document.querySelectorAll('.on, .out').forEach(function (e) { e.classList.remove('on', 'out'); });
   }
   function finale(instant) {
-    body.classList.add('city', 'title', 'kick', 'full-on', 'hero');
+    body.classList.add('city', 'titled', 'kick', 'full-on', 'hero');
     cut(7, 8);
     document.querySelectorAll('.logo .ch, .vi').forEach(function (e) { e.classList.add('on'); });
     rain = true; loop();
@@ -413,7 +430,7 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
       at(t, function () { cut(i + 2, 3); chs[i].classList.add('on'); boom(false); shake(false); buzz(50); });
     });
     at(14600, function () {
-      cut(7, 8); document.querySelector('.vi').classList.add('on'); body.classList.add('title'); boom(true); shake(true); buzz([120, 50, 160]); chime();
+      cut(7, 8); document.querySelector('.vi').classList.add('on'); body.classList.add('titled'); boom(true); shake(true); buzz([120, 50, 160]); chime();
       var r = document.querySelector('.logo').getBoundingClientRect();
       burst(r.left + r.width / 2, r.top + r.height / 2, 160, 11);
     });
@@ -432,6 +449,15 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
     play();
   });
   $('again').addEventListener('click', play);
+  function proof(open) {
+    var el = $('proof');
+    if (open) { el.hidden = false; void el.offsetWidth; el.classList.add('on'); chime(); $('proof-close').focus(); }
+    else { el.classList.remove('on'); setTimeout(function () { el.hidden = true; $('see').focus(); }, 400); }
+  }
+  $('see').addEventListener('click', function () { proof(true); });
+  $('proof-close').addEventListener('click', function () { proof(false); });
+  $('proof').addEventListener('click', function (e) { if (e.target === this) proof(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('proof').hidden) proof(false); });
   $('skip').addEventListener('click', function () { reset(); finale(true); $('skip').hidden = true; chime(); var r = document.querySelector('.logo').getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, 120, 10); });
   $('mute').addEventListener('click', function () { muted = !muted; song.muted = muted; this.textContent = muted ? '🔇' : '🔊'; this.setAttribute('aria-label', muted ? 'Turn sound on' : 'Mute sound'); });
   $('back').addEventListener('click', function (e) {
