@@ -125,7 +125,6 @@ body.end .bar { translate: 0 -100%; } body.end .bar.b { translate: 0 100%; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain 0.6s steps(3) infinite; }
 @keyframes grain { 33% { translate: -3% 2%; } 66% { translate: 2% -3%; } }
-.start::before { content: ""; position: absolute; inset: 0; background: url(gta/main-roof.jpg) center / cover; filter: blur(14px) brightness(0.35); scale: 1.1; z-index: -1; }
 .start { isolation: isolate; }
 
 /* Finale: the cover art, shown whole over a blurred copy of itself */
@@ -374,23 +373,28 @@ body.end .ending { opacity: 1; translate: -50% 0; pointer-events: auto; }
     });
     at(7000, function () { noise(0.35, 1.5, 300, true); });
     // Act 3: flash into the city
+    // Montage: every screenshot, cut fast like a trailer, after the flash
+    for (var m = 1; m <= 13; m++) (function (m) {
+      at(9300 + (m - 1) * 260, function () { cut(m, 2.5); if (m % 3 === 1) { noise(0.12, 0.18, 2500); buzz(20); } });
+    })(m);
+    at(12900, function () { cut(0, 6); boom(false); shake(false); });
     at(8500, function () { on('flash'); cut(0, 4); body.classList.add('city'); boom(true); shake(true); buzz([90, 40, 90]); });
     // Act 4: the title slams in, letter by letter
     var chs = document.querySelectorAll('.logo .ch');
-    [9600, 10000, 10400].forEach(function (t, i) {
+    [13100, 13500, 13900].forEach(function (t, i) {
       at(t, function () { cut(i + 2, 3); chs[i].classList.add('on'); boom(false); shake(false); buzz(50); });
     });
-    at(11100, function () {
+    at(14600, function () {
       cut(7, 8); document.querySelector('.vi').classList.add('on'); body.classList.add('title'); boom(true); shake(true); buzz([120, 50, 160]); chime();
       var r = document.querySelector('.logo').getBoundingClientRect();
       burst(r.left + r.width / 2, r.top + r.height / 2, 160, 11);
     });
-    at(11500, function () { burst(innerWidth * 0.1, innerHeight * 0.9, 70, 13); burst(innerWidth * 0.9, innerHeight * 0.9, 70, 13); });
-    at(12000, function () { body.classList.add('full-on'); });
-    at(12600, function () { body.classList.add('kick'); rain = true; loop(); });
-    at(13600, function () { body.classList.add('hero'); boom(false); });
+    at(15000, function () { burst(innerWidth * 0.1, innerHeight * 0.9, 70, 13); burst(innerWidth * 0.9, innerHeight * 0.9, 70, 13); });
+    at(15500, function () { body.classList.add('full-on'); });
+    at(16100, function () { body.classList.add('kick'); rain = true; loop(); });
+    at(17100, function () { body.classList.add('hero'); boom(false); });
     // Act 5: the message
-    at(15200, function () { body.classList.add('end'); $('skip').hidden = true; });
+    at(18700, function () { body.classList.add('end'); $('skip').hidden = true; });
   }
 
   $('go').addEventListener('click', function () {
