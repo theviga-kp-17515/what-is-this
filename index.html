@@ -443,6 +443,16 @@ footer .icon { color: var(--rose); width: 1.5rem; height: 1.5rem; }
 @keyframes gtaShine { from { background-position: 120% 0; } to { background-position: -130% 0; } }
 @keyframes gtaPop { from { opacity: 0; transform: skewX(-7deg) scale(1.7); } 60% { opacity: 1; } }
 @keyframes gtaTwinkle { 50% { opacity: 0.2; transform: scale(0.6); } }
+.gta-tease { margin: 0; font: 600 clamp(1.7rem, 7vw, 2.3rem)/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; text-shadow: 0 2px 12px rgba(20, 0, 30, 0.6); }
+.gta-tease b { font-weight: 800; background: linear-gradient(180deg, #f8dc9a, #e9bb63 55%, #c99440); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gta-go { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 0.6rem; padding: 1.05rem 1.9rem; border-radius: 999px; text-decoration: none;
+  font: 800 1.2rem/1 var(--display); letter-spacing: 0.12em; text-transform: uppercase; color: #3a0c22;
+  background: linear-gradient(180deg, #ffe3a3, #f6cf7a 45%, #c9913c); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4) inset, 0 10px 34px rgba(246, 207, 122, 0.45);
+  animation: goPulse 1.8s ease-in-out infinite; }
+.gta-go::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.75) 50%, transparent 65%); translate: -120% 0; animation: goSweep 2.6s ease-in-out infinite; }
+.gta-go:focus-visible { outline: 2px solid #f6cf7a; outline-offset: 4px; }
+@keyframes goPulse { 50% { scale: 1.05; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4) inset, 0 10px 50px rgba(255, 92, 154, 0.6); } }
+@keyframes goSweep { 60%, 100% { translate: 120% 0; } }
 @media (prefers-reduced-motion: reduce) { .gta-card * { animation: none !important; } }
 .reveal-card img { width: 100%; aspect-ratio: 4 / 4.4; object-fit: cover; object-position: 50% 30%; border-radius: 12px; display: block; }
 .reveal-card .note { font: 500 1.55rem/1.35 var(--hand); color: var(--ink); text-align: center; text-wrap: pretty; white-space: pre-line; margin: 0; padding: 0 0.5rem; min-height: 13rem; }
@@ -512,8 +522,8 @@ footer .icon { color: var(--rose); width: 1.5rem; height: 1.5rem; }
         <div class="reveal-card gta-card" hidden>
           <span class="gta-fx gta-bokeh" style="left:6%;top:14%;width:5rem;height:5rem;animation-delay:0s"></span><span class="gta-fx gta-bokeh" style="left:74%;top:8%;width:6rem;height:6rem;animation-delay:-2s"></span><span class="gta-fx gta-heart gold" style="left:61%;font-size:1.5rem;animation-duration:9.4s;animation-delay:-2.2s"></span><span class="gta-fx gta-heart" style="left:61%;font-size:1.2rem;animation-duration:8.3s;animation-delay:-8.2s"></span><span class="gta-fx gta-heart" style="left:69%;font-size:1.2rem;animation-duration:8.5s;animation-delay:-8.1s"></span><span class="gta-fx gta-heart gold" style="left:61%;font-size:1.0rem;animation-duration:6.4s;animation-delay:-1.9s"></span><span class="gta-fx gta-heart" style="left:92%;font-size:1.3rem;animation-duration:8.4s;animation-delay:-6.0s"></span><span class="gta-fx gta-heart" style="left:61%;font-size:1.3rem;animation-duration:8.5s;animation-delay:-8.4s"></span>
           <span class="gta-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>Unlocked</span>
-          <b class="gta-title">GTA VI</b>
-          <p class="gta-sub">Grand Theft Auto VI is yours.</p>
+          <p class="gta-tease">Something <b>BIG</b> is waiting for you…</p>
+          <a class="gta-go" href="reveal.html">Reveal my gift <span aria-hidden="true">▶</span></a>
         </div>
       </div>
     </div>
